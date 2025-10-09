@@ -7,3 +7,4 @@ data/bad_data/*
 data/models/*
 .env
 .DS_Store
+.vscode
