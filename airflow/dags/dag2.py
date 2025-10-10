@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 from typing import List, Dict, Any
 
@@ -31,33 +31,22 @@ except Exception as e:
 # -------------------- DAG Definition --------------------
 with DAG(
     dag_id="check_new_data_and_predict",
-    description="Check for CSVs in data/good_data and create a first-row prediction file",
     start_date=datetime(2025, 1, 1),
-    schedule=None,  # no automatic schedule; use "@daily" if desired
+    schedule=timedelta(minutes=5),
     catchup=False,
     tags=["example", "safe-import"],
 ) as dag:
 
     @task(task_id="check_for_new_data")
     def check_for_new_data() -> List[str]:
-        """Return a list of absolute CSV file paths found in GOOD_DIR.
-        If folder missing or no CSVs, raise AirflowSkipException to gracefully skip the DAG run.
-        """
-        log = logging.getLogger("airflow.task.check_for_new_data")
-        log.info("Checking for CSV files in: %s", GOOD_DIR)
 
-        # Make sure GOOD_DIR exists — if not, skip (do not crash DAG parsing).
         if not GOOD_DIR.exists():
-            log.warning("GOOD_DIR does not exist: %s", GOOD_DIR)
             raise AirflowSkipException("good_data folder not found - skipping DAG run.")
 
-        # find CSV files (non-recursive) and return sorted absolute paths
         csv_files = sorted([str(p.resolve()) for p in GOOD_DIR.glob("*.csv") if p.is_file()])
         if not csv_files:
-            log.info("No CSV files found in %s - skipping DAG run.", GOOD_DIR)
             raise AirflowSkipException("No CSV files in good_data - skipping DAG run.")
 
-        log.info("Found %d CSV file(s). First: %s", len(csv_files), csv_files[0])
         return csv_files
 
     @task(task_id="make_predictions")

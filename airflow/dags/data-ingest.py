@@ -36,7 +36,7 @@ with DAG(
     dag_id="move_csv_from_raw_to_good",
     default_args=default_args,
     start_date=datetime(2025, 1, 1),
-    schedule=None,
+    schedule=timedelta(seconds=40),
     catchup=False,
     tags=["file-move"],
 ) as dag:
