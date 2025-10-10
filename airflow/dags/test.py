@@ -11,20 +11,19 @@ RAW_DIR = DAG_DIR / "data" / "raw_data"
 GOOD_DIR = DAG_DIR / "data" / "good_data"
 # ----------------------------
 
-def move_csv_files(**kwargs):
+def move_one_csv(**kwargs):
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     GOOD_DIR.mkdir(parents=True, exist_ok=True)
 
-    moved = []
-    for f in RAW_DIR.glob("*.csv"):
-        dest = GOOD_DIR / f.name
-        shutil.move(str(f), str(dest))
-        moved.append(f.name)
-
-    if moved:
-        print("Moved:", moved)
-    else:
+    csv_files = sorted(RAW_DIR.glob("*.csv"))
+    if not csv_files:
         print("No CSV files found in", RAW_DIR)
+        return
+
+    f = csv_files[0]  # move only the first file
+    dest = GOOD_DIR / f.name
+    shutil.move(str(f), str(dest))
+    print(f"Moved: {f.name}")
 
 default_args = {
     "owner": "airflow",
@@ -37,14 +36,12 @@ with DAG(
     dag_id="move_csv_from_raw_to_good",
     default_args=default_args,
     start_date=datetime(2025, 1, 1),
-    schedule=None,          # <- updated: use `schedule` instead of deprecated `schedule_interval`
+    schedule=None,
     catchup=False,
     tags=["file-move"],
 ) as dag:
 
-    move_files = PythonOperator(
-        task_id="move_csv_files",
-        python_callable=move_csv_files,
+    move_file = PythonOperator(
+        task_id="move_one_csv",
+        python_callable=move_one_csv,
     )
-
-    move_files
