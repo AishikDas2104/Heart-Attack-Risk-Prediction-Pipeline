@@ -1,0 +1,22 @@
+{
+  "Age": 0.595505617977528,
+  "Cholesterol": 0.3142857142857143,
+  "Heart_rate": 0.0476626947754353,
+  "Diabetes": 0,
+  "Smoking": 1,
+  "Obesity": 0,
+  "Alcohol_Consumption": 0,
+  "Exercise_Hours_Per_Week": 0.2083262115349273,
+  "Previous_Heart_Problems": 0,
+  "Medication_Use": 0,
+  "Stress_Level": 9,
+  "Sedentary_Hours_Per_Day": 0.5512344201230702,
+  "Income": 0.8622683034884884,
+  "BMI": 0.6023628962034188,
+  "Triglycerides": 0.3324675324675324,
+  "Physical_Activity_Days_Per_Week": 0,
+  "Sleep_Hours_Per_Day": 0.3333333333333333,
+  "Blood_sugar": 0.2270175751137986,
+  "CK_MB": 0.0482287853675997,
+  "Troponin": 0.0365123661820742
+}
