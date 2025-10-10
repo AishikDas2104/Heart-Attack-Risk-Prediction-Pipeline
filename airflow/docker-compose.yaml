@@ -87,6 +87,7 @@ x-airflow-common:
       condition: service_healthy
 
 services:
+ 
   postgres:
     image: postgres:13
     environment:

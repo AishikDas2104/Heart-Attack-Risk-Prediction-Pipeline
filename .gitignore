@@ -8,3 +8,4 @@ data/models/*
 .env
 .DS_Store
 .vscode
+airflow/logs/
