@@ -1,0 +1,4 @@
+{"timestamp":"2025-10-10T16:15:44.891620","level":"info","event":"DAG bundles loaded: dags-folder","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager"}
+{"timestamp":"2025-10-10T16:15:44.902462","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/test.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-10-10T16:15:44.945856","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator"}
+{"timestamp":"2025-10-10T16:15:46.030207Z","level":"info","event":"Moved: gym_members_exercise_trackin.csv","chan":"stdout","logger":"task"}
