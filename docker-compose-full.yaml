@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # FastAPI Service
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    container_name: heart-gym-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./predictions.db:/app/predictions.db
+      - ./src:/app/src
+      - ./fastapi_service:/app/fastapi_service
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app-network
+    command: uvicorn fastapi_service.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Streamlit Web App
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: heart-gym-streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./streamlit:/app/streamlit
+      - ./airflow/dags/data/stats:/app/airflow/dags/data/stats
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app-network
+    depends_on:
+      - fastapi
+    command: streamlit run streamlit/app.py --server.address=0.0.0.0
+
+  # Stats API for Grafana
+  stats-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.stats
+    container_name: heart-gym-stats
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./airflow/dags/data/stats:/app/airflow/dags/data/stats
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app-network
+    command: python stats_api.py
+
+  # Grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: heart-gym-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  grafana-storage:

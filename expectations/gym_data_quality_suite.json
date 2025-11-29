@@ -1,0 +1,78 @@
+{
+  "data_asset_type": null,
+  "expectation_suite_name": "gym_data_quality_suite",
+  "expectations": [
+    {
+      "expectation_type": "expect_table_columns_to_match_ordered_list",
+      "kwargs": {
+        "column_list": ["Age", "Gender", "Weight (kg)", "Height (m)", "Max_BPM", "Avg_BPM", "Resting_BPM", "Session_Duration (hours)", "Calories_Burned", "Workout_Type", "Fat_Percentage", "Water_Intake (liters)", "Workout_Frequency (days/week)", "Experience_Level", "BMI"]
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "Age",
+        "min_value": 18,
+        "max_value": 100
+      },
+      "meta": {
+        "notes": "Age should be between 18 and 100"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "Gender",
+        "value_set": ["Male", "Female"]
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "Max_BPM",
+        "min_value": 50,
+        "max_value": 220
+      },
+      "meta": {
+        "notes": "Max BPM should be physiologically valid"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "BMI",
+        "min_value": 10,
+        "max_value": 60
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "Age"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "Gender"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "min_value": 1,
+        "max_value": 10000
+      },
+      "meta": {}
+    }
+  ],
+  "ge_cloud_id": null,
+  "meta": {
+    "great_expectations_version": "0.18.0"
+  }
+}
