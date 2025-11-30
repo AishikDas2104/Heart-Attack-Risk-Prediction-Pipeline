@@ -37,7 +37,7 @@ class PredictionResponse(BaseModel):
 @app.get("/")
 def root():
     return {
-        "message": "✅ Heart Attack Prediction API is running!",
+        "message": " Heart Attack Prediction API is running!",
         "usage": "Send a POST request to /predict with age, gender, duration, heart_rate, and body_temp."
     }
 
@@ -77,7 +77,7 @@ def predict(data: Union[HeartInput, List[HeartInput]], source: str = "webapp", d
         results.append({
             "input_data": item.dict(),
             "prediction": risk,
-            "timestamp": datetime.utcnow() # Use current time for response
+            "timestamp": datetime.utcnow() 
         })
     
     db.commit()
@@ -86,7 +86,7 @@ def predict(data: Union[HeartInput, List[HeartInput]], source: str = "webapp", d
         return results[0]
     return results
 
-# --- Past Predictions Endpoint ---
+# poookhj--- Past Predictions Endpoint ---
 @app.get("/past-predictions")
 def get_past_predictions(
     start_date: Optional[datetime] = None, 

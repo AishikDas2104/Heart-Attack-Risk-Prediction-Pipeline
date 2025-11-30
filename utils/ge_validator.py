@@ -136,7 +136,7 @@ def generate_html_report(validation_results: dict, output_path: str):
         </div>
         
         <div class="{'success' if validation_results['success'] else 'failure'}">
-            <h2>Validation {'PASSED ✅' if validation_results['success'] else 'FAILED ❌'}</h2>
+            <h2>Validation {'PASSED ✓' if validation_results['success'] else 'FAILED ✗'}</h2>
             <p>Expectations Passed: {validation_results['expectations_passed']}</p>
             <p>Expectations Failed: {validation_results['expectations_failed']}</p>
         </div>
@@ -147,7 +147,7 @@ def generate_html_report(validation_results: dict, output_path: str):
     for failed_exp in validation_results.get("failed_expectations", []):
         html += f"""
         <div class="expectation failed">
-            <h3>❌ {failed_exp['expectation_type']}</h3>
+            <h3>✗ {failed_exp['expectation_type']}</h3>
             <p><strong>Column:</strong> {failed_exp.get('column', 'N/A')}</p>
             <p><strong>Unexpected Count:</strong> {failed_exp.get('unexpected_count', 0)}</p>
         </div>
@@ -158,7 +158,7 @@ def generate_html_report(validation_results: dict, output_path: str):
     </html>
     """
     
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html)
     
     return output_path
@@ -176,8 +176,8 @@ if __name__ == "__main__":
     print(f"📊 Passed: {results['expectations_passed']}")
     print(f"❌ Failed: {results['expectations_failed']}")
     
-    # Generate HTML report
-    if not results['success']:
+    # Always generate HTML report for demonstration
+    if True:  # Changed from: if not results['success']:
         report_path = "validation_report.html"
         generate_html_report(results, report_path)
         print(f"📄 HTML Report: {report_path}")
