@@ -143,8 +143,8 @@ START_ALL.bat
 **Wait 60 seconds**, then access:
 - **Streamlit UI**: http://localhost:8501
 - **API Docs**: http://localhost:8000/docs
-- **Airflow**: http://localhost:8080 (user: `airflow`, pass: `airflow`)
-- **Grafana**: http://localhost:3000 (user: `admin`, pass: `admin`)
+- **Airflow**: http://localhost:8080
+- **Grafana**: http://localhost:3000
 
 ---
 
