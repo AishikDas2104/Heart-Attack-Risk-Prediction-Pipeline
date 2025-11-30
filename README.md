@@ -395,7 +395,7 @@ This project demonstrates:
 - **Containerized deployment** with Docker
 - **Scalable database** with PostgreSQL
 
-**Perfect for demonstrating MLOps skills!** 🚀
+**Demonstrating MLOps skills!** 🚀
 
 ---
 
